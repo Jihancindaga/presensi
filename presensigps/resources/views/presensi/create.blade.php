@@ -38,11 +38,18 @@
 </div>
 <div class="row">
     <div class="col">
-
+        @if ($cek > 0)
+        <button id="takeabsen" class="btn btn-danger btn-block">
+            <ion-icon name="camera-outline"></ion-icon>
+            Absen Pulang
+        </button> 
+        @else
         <button id="takeabsen" class="btn btn-primary btn-block">
             <ion-icon name="camera-outline"></ion-icon>
             Absen Masuk
         </button>
+        @endif
+        
     </div>
 </div>
 <div class="row mt-2">
@@ -56,7 +63,7 @@
     <script>
         Webcam.set({
             height:480,
-            weight:640,
+            width:640,
             image_format:'jpeg',
             jpeg_quality:80
         });
@@ -87,5 +94,42 @@
         function errorCallback() {
             
         }
+
+        $("#takeabsen").click(function(e){
+            Webcam.snap(function(uri){
+                image = uri;
+            });
+            var lokasi = $("#lokasi").val();
+            $.ajax({
+                type:'POST'
+                , url:'/presensi/store'
+                , data: {
+                    _token:"{{ csrf_token() }}"
+                    , image: image
+                    , lokasi: lokasi
+                }
+                , cache: false
+                , success: function(respond) {
+                    var status = respond.split("|");
+                    if(status [0]== "success") {
+                        Swal.fire({
+                            title: 'Berhasil !',
+                            text: status[1],
+                            icon: 'success'
+                            // confirmButtonText: 'OK'
+                        })
+                        setTimeout("location.href='/dashboard'", 3000);
+                    }else{
+                        Swal.fire({
+                            title: 'Error !',
+                            text: 'Maaf Gagal Presensi, Silahkan Hubungi IT',
+                            icon: 'error'
+                            // confirmButtonText: 'OK'
+                        })
+                    }
+                }
+            });
+        });
+
     </script>
 @endpush
