@@ -83,11 +83,11 @@
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }).addTo(map);
             var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
-            var circle = L.circle([position.coords.latitude, position.coords.longitude], {
+            var circle = L.circle([-7.574956765308379, 110.82508840791726], {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.5,
-                radius: 20
+                radius: 50
             }).addTo(map);
         }
 
@@ -122,7 +122,7 @@
                     }else{
                         Swal.fire({
                             title: 'Error !',
-                            text: 'Maaf Gagal Presensi, Silahkan Hubungi IT',
+                            text: status[1],
                             icon: 'error'
                             // confirmButtonText: 'OK'
                         })
