@@ -22,8 +22,8 @@ class PresensiController extends Controller
         $nik = Auth::guard('karyawan')->user()->nik;
         $tgl_presensi = date("Y-m-d");
         $jam = date("H:i:s");
-        $latitudekantor = -7.574956765308379;
-        $longitudekantor = 110.82508840791726;
+        $latitudekantor = -7.575456619795171;
+        $longitudekantor = 110.82425692310652;
         $lokasi = $request->lokasi;
         $lokasiuser = explode(",", $lokasi);
         $latitudeuser = $lokasiuser[0];
@@ -32,15 +32,22 @@ class PresensiController extends Controller
         $jarak = $this->distance($latitudekantor, $longitudekantor, $latitudeuser, $longitudeuser);
         $radius = round($jarak["meters"]);
 
+        $cek = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('nik', $nik)->count();
+
+        if ($cek > 0) {
+            $ket = "out";
+        }else {
+            $ket = "in";
+        }
+
         $image = $request->image;
         $folderPath = "public/upload/absensi";
-        $formatName = $nik . "-" . $tgl_presensi; 
+        $formatName = $nik . "-" . $tgl_presensi . "-" . $ket; 
         $image_parts = explode(";base64", $image);
         $image_base64 = base64_decode($image_parts[1]);
         $fileName = $formatName . ".png";
         $file = $folderPath . $fileName;
         
-        $cek = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('nik', $nik)->count();
         if($radius > 50){
             echo "error|Maaf Anda Berada diluar Radius, Jarak Anda " . $radius . " meter dari Sekolah|";
         }else{
