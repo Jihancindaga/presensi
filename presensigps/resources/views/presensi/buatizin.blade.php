@@ -10,7 +10,7 @@
     </div>
     <div class="pageTittle">Form Izin</div>
     <div class="right"></div>
-</div>
+</div> 
 <!-- {{-- App Header --}} -->
 @endsection
 
