@@ -1,6 +1,7 @@
 @extends('layouts.presensi')
 @section('header')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+<<<<<<< HEAD
 <style>
     .datepicker-modal {
         max-height: 430px !important;
@@ -10,6 +11,8 @@
     }
 </style>
 
+=======
+>>>>>>> 383476d2e3d45ba5edfbd8fcf5d1c0ff40f8b442
 <!-- {{-- App Header --}} -->
 <div class="appHeader bg-primary text-light">
     <div class="left">
