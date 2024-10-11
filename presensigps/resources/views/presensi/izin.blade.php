@@ -32,7 +32,6 @@
         @endif
     </div>
 </div>
-<<<<<<< HEAD
 <div class="row">
    <div class="col">
     @foreach ($dataizin as $d)
@@ -58,8 +57,6 @@
     @endforeach
    </div>
 </div>
-=======
->>>>>>> 383476d2e3d45ba5edfbd8fcf5d1c0ff40f8b442
     <div class="fab-button bottom-right" style="margin-bottom: 70px">
         <a href="/presensi/buatizin" class="fab">
             <ion-icon name="add-outline"></ion-icon>
@@ -68,14 +65,3 @@
 @endsection
 
 
-<<<<<<< HEAD
-
-=======
-<!-- @section('content')
-<div class="fab-button buttom-right" style="margin-bottom: 70px">
-    <a href="#" class="fab">
-        <ion-icon name="add-circle-outline"></ion-icon>
-    </a>
-</div>
-@endsection -->
->>>>>>> 383476d2e3d45ba5edfbd8fcf5d1c0ff40f8b442

@@ -1,6 +1,6 @@
 @extends('layouts.presensi')
 @section('content')
-<div class="section" id="user-section">
+<div class="section" id="user-section" style="background-color: #572079">
             <div id="user-detail">
                 <div class="avatar">
                     @if (!empty(Auth::guard('karyawan')->user()->foto))
@@ -179,8 +179,8 @@
                             
                             <li>
                                 <div class="item">
-                                    <div class="icon-box bg-primary">
-                                        <ion-icon name="person-outline"></ion-icon>
+                                    <div class="icon-box" style="background-color: #572079">
+                                        <ion-icon name="person-outline" style="color: white" ></ion-icon>
                                         {{-- <ion-icon name="image-outline" role="img" class="md hydrated"
                                             aria-label="image outline"></ion-icon> --}}
                                     </div>

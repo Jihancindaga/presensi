@@ -15,16 +15,12 @@
     </a>
     <a href="/presensi/create" class="item ">
         <div class="col">
-            <div class="action-button large">
+            <div class="action-button large" style="background-color: #572079">
                 <ion-icon name="camera" role="img" class="md hydrated" aria-label="add outline"></ion-icon>
             </div>
         </div>
     </a>
-<<<<<<< HEAD
     <a href="/presensi/izin" class="item {{ request()->is('presensi/izin') ? 'active' : ''}}">
-=======
-    <a href="/presensi/izin" class="item">
->>>>>>> 383476d2e3d45ba5edfbd8fcf5d1c0ff40f8b442
         <div class="col">
         <ion-icon name="calendar-outline"></ion-icon>
             <strong>Izin</strong>
