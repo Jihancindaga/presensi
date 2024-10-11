@@ -121,7 +121,7 @@
                                 <span class="badge bg-danger" style="position: absolute; top:3px; right:10px; font-size:0.6rem; z-index:999">{{$rekappresensi->jmlhadir}}</span>
                                 <ion-icon name="accessibility-outline" style="font-size: 1.6rem;" class="text-primary mb-1"></ion-icon>
                                 <br>
-                                <span style="font-size: 0.8rem, font-weight:500">Hadir</span>
+                                <span style="font-size: 0.8rem, font-weight: 500">Hadir</span>
                             </div>
                         </div>
                     </div>
