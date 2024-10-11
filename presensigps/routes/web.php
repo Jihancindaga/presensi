@@ -41,3 +41,6 @@ Route::middleware(['auth:karyawan'])->group(function(){
     Route::get('/presensi/buatizin', [PresensiController::class, 'buatizin']);
     Route::post('/presensi/storeizin', [PresensiController::class, 'storeizin']);
 });
+
+Route::get('/dashboardadmin',[DashboardController::class,'dashboardadminboostrap']);
+Route::get('/boostrap/tables',[DashboardController::class,'tables']);
