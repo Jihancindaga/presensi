@@ -72,18 +72,19 @@
       <h2>
        Login to your account
       </h2>
-      <form>
+      <form action="/prosesloginadmin" method="POST" autocomplete="off" novalidate>
+        @csrf
        <div class="mb-3">
-        <label class="form-label" for="email">
+        <label class="form-label">
          Email address
         </label>
-        <input class="form-control" id="email" placeholder="your@email.com" type="email"/>
+        <input class="form-control" name="email" placeholder="your@email.com" type="email" autocomplete="off"/>
        </div>
        <div class="mb-3">
-        <label class="form-label" for="password">
+        <label class="form-label">
          Password
         </label>
-        <input class="form-control" id="password" placeholder="Your password" type="password"/>
+        <input class="form-control"  name="password" placeholder="Your password" type="password" autocomplete="off"/>
         <a class="forgot-password" href="#">
          I forgot password
         </a>
@@ -97,28 +98,9 @@
        <button class="btn btn-primary" type="submit">
         Sign in
        </button>
-       <div class="text-center my-3">
-        or
-       </div>
-       <div class="d-flex justify-content-between">
-        <button class="btn btn-outline-secondary" type="button">
-         <i class="fab fa-github">
-         </i>
-         Login with Github
-        </button>
-        <button class="btn btn-outline-secondary" type="button">
-         <i class="fas fa-times">
-         </i>
-         Login with X
-        </button>
        </div>
       </form>
-      <div class="signup-link">
-       Don't have account yet?
-       <a href="#">
-        Sign up
-       </a>
-      </div>
+      
      </div>
     </div>
    </div>

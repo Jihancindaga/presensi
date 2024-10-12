@@ -1,8 +1,15 @@
  <!-- App Bottom Menu -->
  <div class="appBottomMenu">
     <a href="/dashboard" class="item {{ request()->is('dashboard') ? 'active' : ''}}">
+        
         <div class="col">
-            <ion-icon name="home-outline"></ion-icon>
+            <ion-icon name="home-outline">
+                {{-- <style>
+                    .col{
+                        color: #572079 !important;
+                    }
+                </style> --}}
+            </ion-icon>
             <strong>Home</strong>
         </div>
     </a>
@@ -15,8 +22,8 @@
     </a>
     <a href="/presensi/create" class="item ">
         <div class="col">
-            <div class="action-button large" style="background-color: #572079">
-                <ion-icon name="camera" role="img" class="md hydrated" aria-label="add outline"></ion-icon>
+            <div class="action-button large" style="background-color: #572079" >
+                <ion-icon name="camera" role="img" class="md hydrated" aria-label="add outline" style="color: white !important"></ion-icon>
             </div>
         </div>
     </a>
@@ -33,4 +40,18 @@
         </div>
     </a>
 </div>
+<style>
+    .appBottomMenu .item .col ion-icon,
+.appBottomMenu .item .col strong {
+    color: #000000 !important; /* Warna default (hitam atau sesuai kebutuhan) */
+}
+
+.appBottomMenu .item.active .col ion-icon,
+.appBottomMenu .item.active .col strong {
+    color: #9047be !important; /* Warna ungu saat halaman menu aktif */
+}
+
+
+</style>
+
 <!-- * App Bottom Menu -->

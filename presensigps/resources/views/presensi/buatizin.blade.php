@@ -6,12 +6,12 @@
         max-height: 430px !important;
     }
     .datepicker-date-display {
-        background-color: #0f3a7e !important;
+        background-color: #b5b5b5!important;
     }
 </style>
 
 <!-- {{-- App Header --}} -->
-<div class="appHeader bg-primary text-light">
+<div class="appHeader bg-primary text-light" style="background-color: #572079 !important">
     <div class="left">
         <a href="javascript:;" class="headerButton goBack">
             <ion-icon name="chevron-back-outline"></ion-icon>
@@ -42,7 +42,18 @@
                         <textarea name="keterangan" id="keterangan" cols="30" rows="5" class="form-control" placeholder="keterangan"></textarea>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary w-100">Submit</button>
+                        <button class="btn w-100">
+                            <style>
+                                .btn {
+                                    background-color: #572079  !important; /* Warna latar belakang 
+                                    color: white !important; /* Warna teks sesuai tema, bisa diubah sesuai keinginan */
+                                    border-color: #572079 !important; /* Warna garis pinggir tombol */
+                                }
+                                .btn:hover {
+                                    background-color: #572079 !important; /* Warna latar belakang saat hover */
+                                    color: white !important; /* Warna teks saat hover */
+                                }
+                            </style>Submit</button>
                     </div>
         </form>
     </div>

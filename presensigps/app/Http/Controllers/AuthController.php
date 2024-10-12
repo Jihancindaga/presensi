@@ -28,5 +28,14 @@ class AuthController extends Controller
             return redirect('/');
         }
     }
+
+    public function prosesloginadmin(Request $request)
+    {
+        if(Auth::guard('user')->attempt(['email' => $request->email,'password' => $request->password])){
+             return redirect('/dashboardadmin');
+         }else {
+             return redirect('/panel')->with(['warning' => 'Username atau Password Salah']);
+         }
+    }
 }
 

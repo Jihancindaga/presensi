@@ -1,7 +1,7 @@
 @extends('layouts.presensi')
 @section('header')
 {{-- App Header --}}
-<div class="appHeader bg-primary text-light">
+<div class="appHeader bg-primary text-light" style="background-color: #572079 !important">
     <div class="left">
         <a href="javascript:;" class="headerButton goBack">
             <ion-icon name="chevron-back-outline"></ion-icon>
@@ -65,6 +65,18 @@
         <div class="form-group boxed">
             <div class="input-wrapper">
                 <button type="submit" class="btn btn-primary btn-block">
+                    <style>
+                        .btn {
+                            background-color: #572079  !important; /* Warna latar belakang 
+                            color: white !important; /* Warna teks sesuai tema, bisa diubah sesuai keinginan */
+                            border-color: #572079 !important; /* Warna garis pinggir tombol */
+                        }
+                        .btn:hover {
+                            background-color: #572079 !important; /* Warna latar belakang saat hover */
+                            color: white !important; /* Warna teks saat hover */
+                            border-color: #572079 !important;
+                        }
+                    </style>
                     <ion-icon name="refresh-outline"></ion-icon>
                     Update
                 </button>

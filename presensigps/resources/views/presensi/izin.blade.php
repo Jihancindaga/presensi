@@ -1,7 +1,7 @@
 @extends('layouts.presensi')
 @section('header')
 <!-- {{-- App Header --}} -->
-<div class="appHeader bg-primary text-light">
+<div class="appHeader bg-primary text-light" style="background-color: #572079 !important; ">
     <div class="left">
         <a href="javascript:;" class="headerButton goBack">
             <ion-icon name="chevron-back-outline"></ion-icon>
@@ -58,7 +58,20 @@
    </div>
 </div>
     <div class="fab-button bottom-right" style="margin-bottom: 70px">
+        
         <a href="/presensi/buatizin" class="fab">
+            <style>
+                .fab {
+                    background-color: #572079 !important; /* Warna ungu */
+                    border-color: #572079 !important; /* Pastikan border juga sesuai */
+                    color: #ffffff !important; /* Warna teks/ikon menjadi putih */
+                }
+                .fab:hover {
+                    background-color: #3e0b5d !important; /* Warna ungu lebih gelap saat hover */
+                }
+    
+    
+            </style>
             <ion-icon name="add-outline"></ion-icon>
         </a>
     </div>

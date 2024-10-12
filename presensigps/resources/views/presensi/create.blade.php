@@ -1,7 +1,7 @@
 @extends('layouts.presensi')
 @section('header')
 <!-- App Header -->
-<div class="appHeader bg-primary text-light">
+<div class="appHeader bg-primary text-light" style="background-color: #572079 !important">
     <div class="left">
         <a href="javascript:;" class="headerButton goBack">
             <ion-icon name="chevron-back-outline"></ion-icon>
@@ -44,7 +44,7 @@
             Absen Pulang
         </button> 
         @else
-        <button id="takeabsen" class="btn btn-primary btn-block">
+        <button id="takeabsen" class="btn btn-success btn-block">
             <ion-icon name="camera-outline"></ion-icon>
             Absen Masuk
         </button>
