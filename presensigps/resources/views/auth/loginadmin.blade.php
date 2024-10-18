@@ -72,11 +72,16 @@
       <h2>
        Login to your account
       </h2>
+      @if (Session::get('warning'))
+          <div class="alert alert-warning">
+            <p>{{ Session::get('warning')}}</p>
+          </div>
+      @endif
       <form action="/prosesloginadmin" method="POST" autocomplete="off" novalidate>
         @csrf
        <div class="mb-3">
         <label class="form-label">
-         Email address
+         Email address 
         </label>
         <input class="form-control" name="email" placeholder="your@email.com" type="email" autocomplete="off"/>
        </div>

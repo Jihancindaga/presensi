@@ -18,7 +18,11 @@ class Authenticate
     public function handle(Request $request, Closure $next): Response
     {
         if (! $request->expectsJson()) {
-            return route('login');
+            if (request()->is('panel/*')) {
+                return route('loginadmin');
+            }else{
+                return route('login');
+            }
         }
 
         return $next($request);

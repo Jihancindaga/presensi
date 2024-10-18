@@ -44,5 +44,11 @@ Route::middleware(['auth:karyawan'])->group(function(){
     Route::post('/presensi/storeizin', [PresensiController::class, 'storeizin']);
 });
 
-Route::get('/dashboardadmin',[DashboardController::class,'dashboardadminboostrap']);
-Route::get('/boostrap/tables',[DashboardController::class,'tables']);
+Route::middleware(['auth:user'])->group(function(){
+    Route::get('/proseslogoutadmin',[AuthController::class,'proseslogoutadmin']);
+    Route::get('/panel/dashboardadmin',[DashboardController::class,'dashboardadminboostrap']);
+
+
+});
+
+// Route::get('/boostrap/tables',[DashboardController::class,'tables']);
