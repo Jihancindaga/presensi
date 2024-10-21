@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PresensiController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +50,8 @@ Route::middleware(['auth:user'])->group(function(){
     Route::get('/panel/dashboardadmin',[DashboardController::class,'dashboardadminboostrap']);
 
 
+    //siswa
+    Route::get('/siswa',[KaryawanController::class,'index']);
+
 });
 
-// Route::get('/boostrap/tables',[DashboardController::class,'tables']);
