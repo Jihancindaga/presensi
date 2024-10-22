@@ -64,8 +64,10 @@ class DashboardController extends Controller
         return view('dashboard.dashboardadminboostrap',compact('rekappresensi', 'rekapizin'));
     }
 
-    public function tables()
-    {
-        return view('boostrap.tables');
-    }
+    // public function tables()
+    // {
+    //     return view('boostrap.tables');
+    // }
+            // $query->join('kelas', 'karyawan.kode_kelas', '=', 'kelas.kode_kelas');
+
 }
