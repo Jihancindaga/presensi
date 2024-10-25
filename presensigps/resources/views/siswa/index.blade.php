@@ -229,7 +229,6 @@
                 var no_hp = $("#no_hp").val();
                 var kode_kelas = $("#formsiswa").find("#kode_kelas").val();
                 if (nis == "") {
-                    // alert('NIS harus di isi');
                     Swal.fire({
                         title: 'Warning!',
                         text: 'NIS harus di isi',
@@ -241,7 +240,6 @@
                     
                     return false;
                 }else if (nama_lengkap == "") {
-                    // alert('NIS harus di isi');
                     Swal.fire({
                         title: 'Warning!',
                         text: 'Nama harus di isi',
@@ -253,7 +251,6 @@
                     
                     return false;
                 }else if (jabatan== "") {
-                    // alert('NIS harus di isi');
                     Swal.fire({
                         title: 'Warning!',
                         text: 'Jabatan harus di isi',
@@ -265,7 +262,6 @@
                     
                     return false;
                 } else  if (no_hp== "") {
-                    // alert('NIS harus di isi');
                     Swal.fire({
                         title: 'Warning!',
                         text: 'No HP harus di isi',
@@ -277,7 +273,6 @@
                     
                     return false;
                 }else if (kelas== "") {
-                    // alert('NIS harus di isi');
                     Swal.fire({
                         title: 'Warning!',
                         text: 'Kelas harus di isi',
