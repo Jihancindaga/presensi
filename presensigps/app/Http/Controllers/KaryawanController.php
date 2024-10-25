@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Karyawan;
+use Egulias\EmailValidator\Warning\DeprecatedComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +24,7 @@ class KaryawanController extends Controller
         if(!empty($request->kelas )){
             $query->where('karyawan.kode_kelas', $request->kelas );
         }
-        $karyawan = $query->paginate(2);
+        $karyawan = $query->paginate(10);
 
 
         $kelas = DB::table('kelas')->get();
@@ -70,6 +71,13 @@ class KaryawanController extends Controller
             return Redirect::back()->with(['error' => 'Data Gagal Disimpan']);
 
         }
+    }
+
+    public function edit(Request $request)
+    {
+        $nik = $request->nik;
+        // $departemen = DB::table('departemen')->get();
+        return view('siswa.edit');
     }
 
 

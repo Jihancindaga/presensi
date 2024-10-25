@@ -76,7 +76,7 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">NO</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">NIS</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">NAMA</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">KELAS</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">GENDER</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">NO HP</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">FOTO</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">KELAS</th>
@@ -111,7 +111,14 @@
                                     @endif
                                 </td>
                                 <td>{{ $d->kode_kelas}}</td>
-                                <td></td>
+                                <td>
+                                    <a href="#" class="edit" nik="{{ $d->nik }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                          </svg>
+                                    </a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -126,8 +133,24 @@
 </div>
 {{ $karyawan->links('vendor.pagination.bootstrap-5')}}
 
-<!-- Modal -->
-<div class="modal fade" id="modal_inputsiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal Edit -->
+<div class="modal fade" id="modal_editsiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Data Siswa</h5>
+          <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close" id="btnTambahsiswa">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="loadeditform">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal_inputsiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -165,7 +188,7 @@
                       <div class="form-group">
                         <div class="input-group input-group-alternative mb-4">
                           <span class="input-group-text"><i class="ni ni-badge"></i></i></span>
-                          <input class="form-control form-control-alternative" name="jabatan" id="jabatan" placeholder="Kelas" type="text">
+                          <input class="form-control form-control-alternative" name="jabatan" id="jabatan" placeholder="Gender" type="text">
                         </div>
                       </div>
                     </div>                          
@@ -220,6 +243,25 @@
         $(function () {
              $("#btnTambahsiswa").click(function(){
                 $("#modal_inputsiswa").modal("show");
+             });
+
+             $(".edit").click(function(){
+                var nik = $(this).attr('nik');
+                $.ajax({
+                    type: 'POST'
+                    , url: '/siswa/edit'
+                    , cache: false
+                    , data: {
+                      _token: "{{ csrf_token(); }}"
+                      , nik: nik 
+                    
+                    }
+
+                    , success: function(respond){
+                       $("#loadeditform").html(respond);
+                    }
+             });
+                $("#modal_editsiswa").modal("show");
              });
 
              $("#formsiswa").submit(function(){
