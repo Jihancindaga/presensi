@@ -15,6 +15,28 @@
                 <div class="card mb-4">
                     <div class="card">
                         <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    @if (Session::get('success'))
+                                    <div class="alert alert-success">
+                                        {{ Session::get('success') }}
+                                    </div>
+                                    @endif
+
+                                    @if (Session::get('warning'))
+                                    <div class="alert alert-warning">
+                                        {{  Session::get('warning') }}
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <a href="#" class="btn btn-primary" id="btnTambahsiswa">
+                                        <i class="ni ni-fat-add"></i>
+                                        Tambah Data</a>
+                                </div>
+                            </div>
                             <form action="/siswa" method="GET">
                                 <div class="row">
                                     <div class="col-6">
@@ -28,8 +50,6 @@
                                                 <option value="">Kelas</option>
                                                 @foreach ($kelas as $d)
                                                 <option value="{{ $d->kode_kelas }}" {{ request('kelas') == $d->kode_kelas ? 'selected' : '' }}>{{ $d->nama_kelas }}</option>
-
-                                                {{-- <option value="{{ $d->nama_kelas}}">{{ $d->kode_kelas}}</option>                                                 --}}
                                                 @endforeach
                                             </select>
                                         </div>
@@ -106,5 +126,170 @@
 </div>
 {{ $karyawan->links('vendor.pagination.bootstrap-5')}}
 
+<!-- Modal -->
+<div class="modal fade" id="modal_inputsiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Tambah Data Siswa</h5>
+          <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close" id="btnTambahsiswa">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/siswa/store" method="POST" id="formsiswa" enctype="multipart/form-data">
+            @csrf
+                    <div class="p-4 bg-secondary">
+                        <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <div class="input-group input-group-alternative mb-4">
+                                  <span class="input-group-text"><i class="ni ni-tag"></i></span>
+                                  <input class="form-control form-control-alternative" name="nik"  id="nik" placeholder="NIS" type="text">
+                                </div>
+                              </div>
+                            </div>                          
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <div class="input-group input-group-alternative mb-4">
+                              <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                              <input class="form-control form-control-alternative" name="nama_lengkap" id="nama_lengkap" placeholder="Nama Lengkap" type="text">
+                            </div>
+                          </div>
+                        </div>                          
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <div class="input-group input-group-alternative mb-4">
+                          <span class="input-group-text"><i class="ni ni-badge"></i></i></span>
+                          <input class="form-control form-control-alternative" name="jabatan" id="jabatan" placeholder="Kelas" type="text">
+                        </div>
+                      </div>
+                    </div>                          
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="input-group input-group-alternative mb-4">
+                      <span class="input-group-text"><i class="ni ni-tablet-button"></i></span>
+                      <input class="form-control form-control-alternative" name="no_hp" id="no_hp" placeholder="No HP" type="text">
+                    </div>
+                  </div>
+                </div>                          
+          </div>
+          <div class="row mt">
+            <div class="col-md-12">
+                <div class="mb-4">
+                    {{-- <div class="form-label">Custom File Input</div> --}}
+                    <input type="file" class="form-control" id="foto" name="foto">
+            </div>                          
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+            <select name="kode_kelas" id="kode_kelas" class="form-select">
+                <option value="">Kelas</option>
+                @foreach ($kelas as $d)
+                <option value="{{ $d->kode_kelas }}" {{ request('kelas') == $d->kode_kelas ? 'selected' : '' }}>{{ $d->nama_kelas }}</option>
+                @endforeach
+            </select>
+        </div>                          
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12">
+        <div class="col-group">
+            <button class="btn btn-primary w-100">Simpan</button>
+        </div>
+    </div>
+  </div>
+
+                
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 @endsection
+
+@push('myscript')
+    <script>
+        $(function () {
+             $("#btnTambahsiswa").click(function(){
+                $("#modal_inputsiswa").modal("show");
+             });
+
+             $("#formsiswa").submit(function(){
+                var nis = $("#nik").val();
+                var nama_lengkap = $("#nama_lengkap").val();
+                var jabatan = $("#jabatan").val();
+                var no_hp = $("#no_hp").val();
+                var kode_kelas = $("#formsiswa").find("#kode_kelas").val();
+                if (nis == "") {
+                    // alert('NIS harus di isi');
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: 'NIS harus di isi',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                        }).then((result)=>{
+                            $("#nik").focus();
+                        })
+                    
+                    return false;
+                }else if (nama_lengkap == "") {
+                    // alert('NIS harus di isi');
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: 'Nama harus di isi',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                        }).then((result)=>{
+                            $("#nama_lengkap").focus();
+                        })
+                    
+                    return false;
+                }else if (jabatan== "") {
+                    // alert('NIS harus di isi');
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: 'Jabatan harus di isi',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                        }).then((result)=>{
+                            $("#jabatan").focus();
+                        })
+                    
+                    return false;
+                } else  if (no_hp== "") {
+                    // alert('NIS harus di isi');
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: 'No HP harus di isi',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                        }).then((result)=>{
+                            $("#no_hp").focus();
+                        })
+                    
+                    return false;
+                }else if (kelas== "") {
+                    // alert('NIS harus di isi');
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: 'Kelas harus di isi',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                        }).then((result)=>{
+                            $("#kode_kelas").focus();
+                        })
+                    
+                    return false;
+                }
+             });
+        });
+    </script>
+@endpush
