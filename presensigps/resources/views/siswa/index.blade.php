@@ -133,24 +133,8 @@
 </div>
 {{ $karyawan->links('vendor.pagination.bootstrap-5')}}
 
-<!-- Modal Edit -->
-<div class="modal fade" id="modal_editsiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Edit Data Siswa</h5>
-          <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close" id="btnTambahsiswa">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body" id="loadeditform">
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="modal_inputsiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal Tambah -->
+<div class="modal fade" id="modal_inputsiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -221,21 +205,35 @@
         </div>                          
   </div>
 
-  <div class="row mt-3">
-    <div class="col-12">
-        <div class="col-group">
-            <button class="btn btn-primary w-100">Simpan</button>
-        </div>
-    </div>
-  </div>
-
-                
+              <div class="row mt-3">
+                <div class="col-12">
+                    <div class="col-group">
+                        <button class="btn btn-primary w-100">Simpan</button>
+                    </div>
+                </div>
+              </div>              
           </form>
         </div>
       </div>
     </div>
   </div>
 
+{{-- modal edit --}}
+<div class="modal fade" id="modal_editsiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Data Siswa</h5>
+        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close" id="btnEditsiswa">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="loadeditform">
+
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 
 @push('myscript')
@@ -258,10 +256,12 @@
                     }
 
                     , success: function(respond){
+                      console.log('AJAX response:', respond); 
                        $("#loadeditform").html(respond);
+                       $("#modal_editsiswa").modal("show");
+
                     }
              });
-                $("#modal_editsiswa").modal("show");
              });
 
              $("#formsiswa").submit(function(){
@@ -314,7 +314,7 @@
                         })
                     
                     return false;
-                }else if (kelas== "") {
+                }else if (kode_kelas== "") {
                     Swal.fire({
                         title: 'Warning!',
                         text: 'Kelas harus di isi',

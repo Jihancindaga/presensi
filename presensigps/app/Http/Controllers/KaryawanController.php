@@ -76,8 +76,8 @@ class KaryawanController extends Controller
     public function edit(Request $request)
     {
         $nik = $request->nik;
-        // $departemen = DB::table('departemen')->get();
-        return view('siswa.edit');
+        $kelas = DB::table('kelas')->get();
+        return view('siswa.edit',compact('kelas'));
     }
 
 
