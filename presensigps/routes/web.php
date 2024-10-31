@@ -54,7 +54,7 @@ Route::middleware(['auth:user'])->group(function(){
     Route::get('/siswa',[KaryawanController::class,'index']);
     Route::post('/siswa/store',[KaryawanController::class,'store']);
     Route::post('/siswa/edit',[KaryawanController::class,'edit']);
-
+    Route::post('/siswa/{nik}/update',[KaryawanController::class,'update']);
 
 });
 

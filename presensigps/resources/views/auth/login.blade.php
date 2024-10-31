@@ -83,12 +83,12 @@
                     <div class="form-button-group">
                         <button type="submit" class="btn btn-primary btn-block btn-lg" >
                             <style>
-                                .btn-primary {
+                                .btn-primary.btn-lg {
                                     background-color: #572079  !important; /* Warna latar belakang 
                                     color: white !important; /* Warna teks sesuai tema, bisa diubah sesuai keinginan */
                                     border-color: #572079 !important; /* Warna garis pinggir tombol */
                                 }
-                                .btn-primary:hover {
+                                .btn-primary.btn-lg:hover {
                                     background-color: #572079 !important; /* Warna latar belakang saat hover */
                                     color: white !important; /* Warna teks saat hover */
                                 }

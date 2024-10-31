@@ -77,7 +77,50 @@ class KaryawanController extends Controller
     {
         $nik = $request->nik;
         $kelas = DB::table('kelas')->get();
-        return view('siswa.edit',compact('kelas'));
+        $karyawan = DB::table('karyawan')->where('nik', $nik)->first();
+        return view('siswa.edit',compact('kelas','karyawan'));
+    }
+
+    public function update(Request $request, $nik)
+    {
+        $nik = $request->nik;
+        $nama_lengkap = $request->nama_lengkap;
+        $jabatan = $request->jabatan;
+        $no_hp = $request->no_hp;
+        $kode_kelas =$request->kode_kelas;
+        $password = Hash::make('123');
+        $old_foto = $request->foto;
+        // $karyawan = DB::table('karyawan')->where('nik', $nik)->first();
+
+        if ($request->hasFile('foto')) {
+            $foto = $nik . "." . $request->file('foto')->getClientOriginalExtension();
+        } else {
+            $foto = $old_foto;
+        }
+
+        try {
+            $data = [
+                'nama_lengkap' => $nama_lengkap,
+                'jabatan' => $jabatan,
+                'no_hp' => $no_hp,
+                'kode_kelas' => $kode_kelas,
+                'foto' => $foto,
+                'password' => $password
+            ];
+            $update = DB::table('karyawan')->where('nik', $nik)->update($data);
+            if ($update) {
+                if ($request->hasFile('foto')) {
+                    $folderPath = "uploads/karyawan";
+                    $request->file('foto')->storeAs($folderPath, $foto);
+                }
+
+                return Redirect::back()->with(['success' => 'Data Berhasil Diupdate']);
+            }
+        } catch (\Exception $e) {
+            // dd($e);
+            return Redirect::back()->with(['error' => 'Data Gagal Diupdate']);
+
+        }
     }
 
 
