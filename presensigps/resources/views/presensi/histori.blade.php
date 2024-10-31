@@ -48,12 +48,12 @@
                 <div class="form-group">
                     <button class="btn btn-primary btn-block" id="getdata" style="background-color: #572079 !important">
                         <style>
-                            .btn-primary {
+                            .btn-primary.btn-block {
                                 background-color: #572079  !important; /* Warna latar belakang 
                                 color: white !important; /* Warna teks sesuai tema, bisa diubah sesuai keinginan */
                                 border-color: #572079 !important; /* Warna garis pinggir tombol */
                             }
-                            .btn-primary:hover {
+                            .btn-primary.btn-block:hover {
                                 background-color: #572079 !important; /* Warna latar belakang saat hover */
                                 color: white !important;
                                 border-color: #572079 !important;  /* Warna teks saat hover */
