@@ -209,4 +209,24 @@ class PresensiController extends Controller
             return redirect('/presensi/izin')->with(['error'=>'Data Gagal Disismpan']);
         }
     }
+
+
+    public function monitoring()
+    {
+        return view('presensi.monitoring');
+    }
+
+
+    public function getpresensi(Request $request)
+    {
+        $tanggal = $request->tanggal;
+        $presensi = DB::table('presensi')
+            ->select('presensi.*', 'nama_lengkap', 'nama_kelas')
+            ->join('karyawan', 'presensi.nik', '=', 'karyawan.nik')
+            ->join('kelas', 'karyawan.kode_kelas', '=', 'kelas.kode_kelas')
+            ->where('tgl_presensi', $tanggal)
+            ->get();
+
+            return view('presensi.getpresensi', compact('presensi'));
+    }
 }

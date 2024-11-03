@@ -65,5 +65,11 @@ Route::middleware(['auth:user'])->group(function(){
     Route::post('/kelas/edit', [KelasController::class,'edit']);
     Route::post('/kelas/{kode_kelas}/update', [KelasController::class,'update']);
     Route::post('/kelas/{kode_kelas}/delete', [KelasController::class,'delete']);
+
+
+    //presensi
+    Route::get('/presensi/monitoring', [PresensiController::class,'monitoring']);
+    Route::post('/getpresensi', [PresensiController::class,'getpresensi']);
+    
 });
 
