@@ -34,6 +34,9 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="/asset/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
   <!-- Nepcha Analytics (nepcha.com) -->
   <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
@@ -121,6 +124,9 @@
   <script src="/asset/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="/asset/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="/asset/js/plugins/chartjs.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
   <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
 

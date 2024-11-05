@@ -1,4 +1,4 @@
-@php
+<?php
 function selisih($jam_masuk, $jam_keluar)
         {
             list($h, $m, $s) = explode(":", $jam_masuk);
@@ -12,8 +12,8 @@ function selisih($jam_masuk, $jam_keluar)
             $sisamenit2 = $sisamenit * 60;
             $jml_jam = $jam[0];
             return $jml_jam . ":" . round($sisamenit2);
-        }
-@endphp
+        };
+?>
 @foreach ($presensi as $d)
 @php
 $foto_in = Storage::url('uploads/absensi/'.$d->foto_in);
@@ -48,5 +48,35 @@ $foto_out = Storage::url('uploads/absensi/'.$d->foto_out);
         <span class="badge bg-success">Tepat Waktu</span>
         @endif
     </td>
+    <td>
+        <a href="#" class="btn btn-primary tampilkanpeta" id="{{ $d->id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+            <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+            <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+        </svg>
+        </a>
+    </td>
 </tr>
 @endforeach
+
+<script>
+    $(function() {
+        $(".tampilkanpeta").click(function(e) {
+            var id = $(this).attr("id");
+            $.ajax({
+                type: 'POST'
+                , url: '/tampilkanpeta'
+                , data: {
+                    _token: "{{ csrf_token() }}"
+                    , id: id
+                }
+                , cache: false
+                , success: function(respond) {
+                    $("#loadmap").html(respond);
+                }
+            });
+            $("#modal-tampilkanpeta").modal("show");
+        });
+    });
+
+</script>

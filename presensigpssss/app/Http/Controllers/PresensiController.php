@@ -227,6 +227,20 @@ class PresensiController extends Controller
             ->where('tgl_presensi', $tanggal)
             ->get();
 
+            if ($presensi->isEmpty()) {
+                return response()->json(['error' => 'Data presensi tidak ditemukan'], 404);
+            }
+
             return view('presensi.getpresensi', compact('presensi'));
+    }
+
+
+    public function tampilkanpeta(Request $request) 
+    {
+        $id = $request->id;
+        $presensi = DB::table('presensi')->where('id', $id)
+        ->join('karyawan', 'presensi.nik', '=', 'karyawan.nik')
+        ->first();
+        return view('presensi.showmap', compact('presensi'));
     }
 }
