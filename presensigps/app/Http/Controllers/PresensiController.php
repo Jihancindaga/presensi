@@ -209,4 +209,7 @@ class PresensiController extends Controller
             return redirect('/presensi/izin')->with(['error'=>'Data Gagal Disismpan']);
         }
     }
+
+
+    
 }
