@@ -78,16 +78,21 @@
         function successCallback(position){
             lokasi.value = position.coords.latitude+","+ position.coords.longitude;
             var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 18);
+            var lokasi_sekolah = "{{ $lok_sekolah ->lokasi_sekolah }}"
+            var lok = lokasi_sekolah.split(",");
+            var lat_sekolah = lok[0];
+            var long_sekolah = lok[1];
+            var radius = "{{ $lok_sekolah->radius }}"
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }).addTo(map);
             var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
-            var circle = L.circle([-7.89422833017013, 110.33804707569024 ], {
+            var circle = L.circle([ lat_sekolah, long_sekolah ], {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.5,
-                radius: 1000
+                radius: radius
             }).addTo(map);
         }
 
