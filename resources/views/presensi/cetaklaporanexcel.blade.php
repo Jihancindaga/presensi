@@ -162,7 +162,7 @@
 
     <table width="100%" style="margin-top: 100px">
         <tr>
-            <td colspan="2" style="text-align: right">Bantul, {{ date('d,m,Y')}}</td>
+            <td colspan="2" style="text-align: right">Bantul, {{ date('d-m-Y')}}</td>
         </tr>
         <tr>
             <td style="text-align: center; vertical-align:bottom" height="100px">
