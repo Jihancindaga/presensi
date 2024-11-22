@@ -18,7 +18,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <select name="bulan" id="bulan" class="form-select">
+                                        <select name="bulan" id="bulan" class="form-select" required>
                                             <option value="">Bulan</option>
                                             @for ($i=1; $i <= 12; $i++)
                                                 <option value ="{{ $i }}"  {{ date ("m") == $i ? 'selected' : '' }}>{{ $namabulan[$i] }}</option>
@@ -30,7 +30,7 @@
                             <div class="row mt-2">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <select name="tahun" id="tahun" class="form-select">
+                                        <select name="tahun" id="tahun" class="form-select" required>
                                             <option value="">Tahun</option>
                                             @php
                                             $tahunmulai = 2022;
@@ -43,17 +43,17 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="row mt-2">
+                            <div class="row mt-2">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <select name="nik" id="nik" class="form-select">
-                                            <option value="">Pilih Siswa</option>
-                                            @foreach ($karyawan as $d)
-                                                <option value="{{ $d->nik}}">{{ $d->nama_lengkap }}</option>
+                                        <select name="kode_kelas" id="kode_kelas" class="form-select">
+                                            <option value="">Semua Kelas</option>
+                                            @foreach ($kelas as $d)
+                                                <option value="{{ $d->kode_kelas }}">{{ $d->nama_kelas }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
                             <div class="row mt-2">
                                 <div class="col-6">

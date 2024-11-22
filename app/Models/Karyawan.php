@@ -11,9 +11,9 @@ use Laravel\Sanctum\HasApiTokens;
 class Karyawan extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-
-   protected $table = "karyawan";
-   protected $primaryKey ="nik";
+    public $timestamps = false;
+    protected $table = "karyawan";
+    protected $primaryKey ="nik";
     protected $fillable = [
         'nik',
         'nama_lengkap',

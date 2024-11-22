@@ -32,6 +32,10 @@ class KelasController extends Controller
             'nama_kelas' => $nama_kelas
         ];
 
+        $cek = DB::table('kelas')->where('kode_kelas', $kode_kelas)->count();
+        if($cek>0){
+            return Redirect::back()->with(['warning' => 'Data dengan Kode Kelas ' . $kode_kelas. ' Sudah Ada']);
+        }
         $simpan = DB::table('kelas')->insert($data);
         if ($simpan) {
             return Redirect::back()->with(['success' => 'Data Berhasil Disimpan']);

@@ -36,7 +36,41 @@
                                         <i class="ni ni-fat-add"></i>
                                         Tambah Data</a>
                                 </div>
+                                <div class="form-group">
+                                  <!-- Button trigger modal -->
+                                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-square" viewBox="0 0 16 16">
+                                      <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.5 2.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
+                                    </svg>
+                                    Import Data
+                                  </button>
+                              </div>
                             </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Import Data Siswa</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <form action="/siswa/importexcel" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                  <div class="modal-body">
+                                  <div class="form-group">
+                                    <input type="file" name="file" required>
+                                  </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                  </div>
+                                </div>
+                              </form>
+                              </div>
+                            </div>
+
                             <form action="/siswa" method="GET">
                                 <div class="row">
                                     <div class="col-6">
@@ -62,6 +96,7 @@
                                             </button>
                                         </div>
                                     </div>
+                                    
     
                                 </div>
                             </form>
@@ -138,7 +173,7 @@
                         </div>
                     </div>
                     
-                    
+                     
 </div>
 </div>
 </div>

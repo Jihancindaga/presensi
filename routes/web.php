@@ -60,6 +60,8 @@ Route::middleware(['auth:user'])->group(function(){
     Route::post('/siswa/edit',[KaryawanController::class,'edit']);
     Route::post('/siswa/{nik}/update',[KaryawanController::class,'update']);
     Route::post('/siswa/{nik}/delete',[KaryawanController::class,'delete']);
+    Route::post('/siswa/importexcel',[KaryawanController::class,'importexcel']);
+
 
 
     // kelas

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\SiswaImport;
 use App\Models\Karyawan;
 use Egulias\EmailValidator\Warning\DeprecatedComment;
 use Illuminate\Support\Facades\Storage;
@@ -9,22 +10,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KaryawanController extends Controller
 {
     public function index(Request $request){
-
         $query = Karyawan::query();
         $query->select('karyawan.*', 'jabatan');
         $query->join('kelas', 'karyawan.kode_kelas', '=', 'kelas.kode_kelas');
         $query->orderBy('nama_lengkap');
-        if(!empty($request->nama_siswa )){
-            $query->where('nama_lengkap', 'like', '%' . $request->nama_siswa . '%');
-        }
+        // if(!empty($request->nama_siswa )){
+        //     $query->where('nama_lengkap', 'like', '%' . $request->nama_siswa . '%');
+        // }
 
-        if(!empty($request->kelas )){
-            $query->where('karyawan.kode_kelas', $request->kelas );
-        }
+        // if(!empty($request->kelas )){
+        //     $query->where('karyawan.kode_kelas', $request->kelas );
+        // }
         $karyawan = $query->paginate(10);
 
 
@@ -69,8 +70,10 @@ class KaryawanController extends Controller
                 return Redirect::back()->with(['success' => 'Data Berhasil Disimpan']);
             }
         } catch (\Exception $e) {
-            // dd($e);
-            return Redirect::back()->with(['warning' => 'Data Gagal Disimpan']);
+            if($e->getCode()==23000){
+                $message = "Data dengan NIS " . $nik . " Sudah Ada";
+            };
+            return Redirect::back()->with(['warning' => 'Data Gagal Disimpan' . $message]);
 
         }
     }
@@ -135,6 +138,16 @@ class KaryawanController extends Controller
             return Redirect::back()->with(['warning' => 'Data Gagal Dihapus']);
 
         }
+    }
+
+    public function importexcel(Request $request){
+        $data = $request->file('file');
+
+        $namafile =$data->getClientOriginalName();
+        $data->move('DataSiswa', $namafile);
+
+        Excel::import(new SiswaImport, public_path('DataSiswa/'. $namafile));
+        return redirect()->back();
     }
 
 }
