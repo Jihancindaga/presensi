@@ -3,7 +3,7 @@
 * Soft UI Dashboard - v1.0.7
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard
+* Product Page: https://www.creative-ti .com/product/soft-ui-dashboard
 * Copyright 2023 Creative Tim (https://www.creative-tim.com)
 * Licensed under MIT (https://www.creative-tim.com/license)
 * Coded by Creative Tim
@@ -305,6 +305,7 @@
     }
   </script>
   <!-- Github buttons -->
+  {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="/asset/js/soft-ui-dashboard.min.js?v=1.0.7"></script>

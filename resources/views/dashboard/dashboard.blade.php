@@ -63,7 +63,7 @@
                                 </a>
                             </div>
                             <div class="menu-name">
-                                <span class="text-center">Cuti</span>
+                                <span class="text-center">izin</span>
                             </div>
                         </div>
                         <div class="item-menu text-center">

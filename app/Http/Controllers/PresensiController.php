@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InputIzin;
 use App\Models\Karyawan;
 use App\Models\Kelas;
 use App\Models\Presensi;
@@ -602,7 +603,7 @@ class PresensiController extends Controller
     {
         $query = Pengajuanizin::query();
         $query->select('id','tgl_izin','pengajuan_izin.nik','nama_lengkap','kode_kelas','status','status_approved','keterangan');
-        $query->join('karyawan','pengajuan_izin.nik','=','karyawan.nik');
+        $query->join('karyawan','pengajuan_izin.nik','=','karyawan.nik'); 
         if (!empty($request->dari) && !empty($request->sampai)) {
             $query->whereBetween('tgl_izin',[$request->dari, $request->sampai]);
         }
@@ -673,5 +674,51 @@ class PresensiController extends Controller
     // }
 
  
+    public function inputizinsakit(Request $request)
+    {
+        $request->validate([
+            'nisn' => 'required|exists:karyawan,nik', // Pastikan NISN ada di tabel karyawan
+            'tanggal' => 'required|date',
+            'nama_lengkap' => 'required',
+            'kode_kelas' => 'required',
+            'keterangan' => 'required',
+        ]);
+
+        // Simpan data ke tabel input_izin
+        InputIzin::create([
+            'nisn' => $request->nik,
+            'tanggal' => $request->tanggal,
+            'nama_lengkap' => $request->nama_lengkap,
+            'kode_kelas' => $request->kode_kelas,
+            'keterangan' => $request->keterangan,
+        ]);
+
+    return response()->json([
+        'message' => 'Data berhasil disimpan!',
+    ], 200);
+
+        // $nisn = $request->nisn;
+        // $tanggal = $request->tanggal;
+        // $nama_lengkap = $request->nama_lengkap;
+        // $kelas = $request->tanggal;
+        // $keterangan = $request->keterangan;
+
+        // $kelas = Kelas::all(); // Mengambil data kelas dari model
+        // $karyawan = DB::table('karyawan')->paginate(10); // Ini mengembalikan Collection, bukan Paginator
+
+        // return view('presensi.inputizinsakit',compact('kelas', 'karyawan'));
+        // try {
+        //     $data = [
+        //         'nisn' => $nisn,
+        //         'tanggal' => $tanggal,
+        //         'nama_lengkap' => $nama_lengkap,
+        //         'kelas' => $kelas,
+        //         'keterangan' => $kelas,
+        //     ];
+        //     $simpan = DB::table('input_izin')->insert($data);
+        // } catch (\Exception $e) {
+        //     //throw $th;
+        // }
+    }
     
 }

@@ -6,6 +6,8 @@ use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\KonfigurasiController;
 use App\Http\Controllers\PresensiController;
+use App\Http\Controllers\Inputizinsakit;
+use App\Http\Controllers\InputizinsakitController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -84,10 +86,27 @@ Route::middleware(['auth:user'])->group(function(){
     Route::post('/presensi/approveizinsakit', [PresensiController::class, 'approveizinsakit']);
     Route::get('/presensi/{id}/batalkanizinsakit', [presensiController::class, 'batalkanizinsakit']);
 
+    // input izin sakit siswa
+    Route::get('/inputizinsakit',[InputizinsakitController::class,'izinsakit']);
+    Route::post('/input/storeizinsakit', [InputizinsakitController::class, 'storeizinsakit']);
+    Route::post('/input/editizinsakit', [InputizinsakitController::class, 'editizinsakit']);
+    Route::post('/input/updateizinsakit', [InputizinsakitController::class, 'updateizinsakit']);
+    Route::post('/input/{nisn}/delete', [InputizinsakitController::class, 'deleteizinsakit']);
+
+
+    
+
     // Konfigurasi
 
     Route::get('/konfigurasi/lokasisekolah',[KonfigurasiController::class,'lokasisekolah']);
     Route::post('/konfigurasi/updatelokasisekolah',[KonfigurasiController::class,'updatelokasisekolah']);
+    Route::get('konfigurasi/jamkerja',[KonfigurasiController::class,'jamkerja']);
+    Route::post('/konfigurasi/storejamkerja', [KonfigurasiController::class, 'storejamkerja']);
+    Route::post('/konfigurasi/editjamkerja', [KonfigurasiController::class, 'editjamkerja']);
+    Route::post('/konfigurasi/updatejamkerja', [KonfigurasiController::class, 'updatejamkerja']);
+    Route::post('/konfigurasi/{kode_jam_kerja}/delete', [KonfigurasiController::class, 'deletejamkerja']);
+    Route::get('/konfigurasi/setjamkerja', [KonfigurasiController::class, 'setjamkerja']);
+
 });
 
 

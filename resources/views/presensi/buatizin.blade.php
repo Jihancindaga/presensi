@@ -33,9 +33,9 @@
                     </div>
                     <div class="form-group">
                         <select name="status" id="status" class="form-control">
-                            <option value="">Izin / Sakit</option>
-                            <option value="i">Izin</option>
-                            <option value="s">Sakit</option>
+                            <option value="">Izin Keluar Sekolah / Kelas </option>
+                            <option value="i">Izin Keluar Kelas</option>
+                            <option value="s">Izin Keluar Sekolah</option>
                         </select>
                     </div>
                     <div class="form-group">

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-use Maatwebsite\Excel\Facades\Excel;
+// use Maatwebsite\Excel\Facades\Excel;
 
 class KaryawanController extends Controller
 {
@@ -140,14 +140,14 @@ class KaryawanController extends Controller
         }
     }
 
-    public function importexcel(Request $request){
-        $data = $request->file('file');
+    // public function importexcel(Request $request){
+    //     $data = $request->file('file');
 
-        $namafile =$data->getClientOriginalName();
-        $data->move('DataSiswa', $namafile);
+    //     $namafile =$data->getClientOriginalName();
+    //     $data->move('DataSiswa', $namafile);
 
-        Excel::import(new SiswaImport, public_path('DataSiswa/'. $namafile));
-        return redirect()->back();
-    }
+    //     Excel::import(new SiswaImport, public_path('DataSiswa/'. $namafile));
+    //     return redirect()->back();
+    // }
 
 }
