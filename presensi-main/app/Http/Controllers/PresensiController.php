@@ -506,6 +506,25 @@ class PresensiController extends Controller
         ->orderBy('tgl_presensi')
         ->get();
 
+        // Tambahkan kolom 'keterangan' secara dinamis
+        $presensi = $presensi->map(function ($item) {
+            // Pastikan properti 'keterangan' didefinisikan terlebih dahulu
+            $item->keterangan = null;
+
+            // Logika menentukan keterangan
+            if (is_null($item->jam_in) && is_null($item->jam_out)) {
+                $item->keterangan = 'Alpha'; // Tidak ada presensi
+            } elseif ($item->keterangan === 'S') {
+                $item->keterangan = 'Sakit'; // Sesuaikan kode
+            } elseif ($item->keterangan === 'I') {
+                $item->keterangan = 'Izin'; // Sesuaikan kode
+            } else {
+                $item->keterangan = 'Hadir'; // Default: Hadir
+            }
+
+            return $item; // Kembalikan data dengan keterangan
+        });
+
         if (isset($_POST['exportexcel'])) {
             $time = date("d-M-Y H:i:s");
             header("Content-type: application/vnd-ms-excel");
@@ -673,52 +692,6 @@ class PresensiController extends Controller
     //     return $response->successful();
     // }
 
- 
-    public function inputizinsakit(Request $request)
-    {
-        $request->validate([
-            'nisn' => 'required|exists:karyawan,nik', // Pastikan NISN ada di tabel karyawan
-            'tanggal' => 'required|date',
-            'nama_lengkap' => 'required',
-            'kode_kelas' => 'required',
-            'keterangan' => 'required',
-        ]);
 
-        // Simpan data ke tabel input_izin
-        InputIzin::create([
-            'nisn' => $request->nik,
-            'tanggal' => $request->tanggal,
-            'nama_lengkap' => $request->nama_lengkap,
-            'kode_kelas' => $request->kode_kelas,
-            'keterangan' => $request->keterangan,
-        ]);
-
-    return response()->json([
-        'message' => 'Data berhasil disimpan!',
-    ], 200);
-
-        // $nisn = $request->nisn;
-        // $tanggal = $request->tanggal;
-        // $nama_lengkap = $request->nama_lengkap;
-        // $kelas = $request->tanggal;
-        // $keterangan = $request->keterangan;
-
-        // $kelas = Kelas::all(); // Mengambil data kelas dari model
-        // $karyawan = DB::table('karyawan')->paginate(10); // Ini mengembalikan Collection, bukan Paginator
-
-        // return view('presensi.inputizinsakit',compact('kelas', 'karyawan'));
-        // try {
-        //     $data = [
-        //         'nisn' => $nisn,
-        //         'tanggal' => $tanggal,
-        //         'nama_lengkap' => $nama_lengkap,
-        //         'kelas' => $kelas,
-        //         'keterangan' => $kelas,
-        //     ];
-        //     $simpan = DB::table('input_izin')->insert($data);
-        // } catch (\Exception $e) {
-        //     //throw $th;
-        // }
-    }
     
 }

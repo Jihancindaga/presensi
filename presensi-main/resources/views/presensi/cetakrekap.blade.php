@@ -92,63 +92,75 @@
             </td>
         </tr>
     </table>
-    
+
     <table class="tabelpresensi">
-        <tr>
-            <th rowspan="2">NIK</th>
-            <th rowspan="2">Nama Siswa</th>
-            <th colspan="31">Tanggal</th>
-            <th rowspan="2">TH</th>
-            <th rowspan="2">TT</th>
-
-        </tr>
-        <tr>
-            <?php
-            for($i=1; $i<= 31; $i ++){
-            ?>
+    <tr>
+        <th rowspan="2">NIK</th>
+        <th rowspan="2">Nama Siswa</th>
+        <th colspan="31">Tanggal</th>
+        <th rowspan="2">A</th>
+        <th rowspan="2">S</th>
+        <th rowspan="2">I</th>
+        <th rowspan="2">TH</th>
+        <th rowspan="2">TT</th>
+    </tr>
+    
+    <tr>
+        @for ($i = 1; $i <= 31; $i++)
             <th>{{ $i }}</th>
-            <?php
+        @endfor
+    </tr>
+
+    @foreach ($rekap as $d)
+        @php
+            $totalhadir = 0;
+            $totalterlambat = 0;
+            $totalsakit = 0;
+            $totalizin = 0;
+            $totalalpha = 0;
+        @endphp
+        <tr>
+            <td>{{ $d->nik }}</td>
+            <td>{{ $d->nama_lengkap }}</td>
+
+            @for ($i = 1; $i <= 31; $i++)
+    @php
+        $tgl = "tgl_" . $i;
+        $hadir = isset($d->$tgl) ? explode("-", $d->$tgl) : ['', ''];
+
+        if ($hadir[0] == "S") {
+            $totalsakit++;
+        } elseif ($hadir[0] == "A") {
+            $totalalpha++;
+        } elseif ($hadir[0] == "I") {
+            $totalizin++;
+        } elseif (!empty($hadir[0])) {
+            $totalhadir++;
+            if (isset($hadir[0]) && $hadir[0] > "07:00:00") {
+                $totalterlambat++;
             }
-            ?>
+        }
+    @endphp
+
+    <td>
+        <span style="color: {{ isset($hadir[0]) && $hadir[0] > '07:00:00' ? 'red' : '' }}">
+            {{ $hadir[0] ?? '' }}
+        </span><br>
+        <span style="color: {{ isset($hadir[1]) && $hadir[1] < '16:00:00' ? 'red' : '' }}">
+            {{ $hadir[1] ?? '' }}
+        </span>
+    </td>
+@endfor
+
+
+            <td>{{ $totalalpha }}</td>
+            <td>{{ $totalsakit }}</td>
+            <td>{{ $totalizin }}</td>
+            <td>{{ $totalhadir }}</td>
+            <td>{{ $totalterlambat }}</td>
         </tr>
-
-        @foreach ($rekap as $d)
-            <tr>
-                <td>{{ $d->nik}}</td>
-                <td>{{ $d->nama_lengkap}}</td>
-
-                <?php
-                $totalhadir = 0;
-                $totalterlambat = 0;
-                for($i=1; $i<= 31; $i ++){
-                    $tgl = "tgl_".$i;
-                    if (empty($d->$tgl)) {
-                        $hadir = ['', ''];
-                        $totalhadir += 0;
-                    } else {
-                        $hadir = explode("-", $d->$tgl);
-                        $totalhadir += 1;
-                        if ($hadir[0] > "07:00:00") {
-                            $totalterlambat +=1;
-                        }
-                    }
-                ?>
-
-                <td>
-                    <span style="color:{{ $hadir[0]>"07:00:00" ? "red" : "" }} "  >{{$hadir[0] }} </span><br>
-                    <span style="color:{{ $hadir[1]<"16:00:00" ? "red" : "" }} "  >{{$hadir[1] }} </span><br>
-                    {{-- {{ $hadir[1] }}  --}}
-                </td>
-                
-                <?php
-                }
-                ?>
-                <td>{{ $totalhadir}}</td>
-                <td>{{ $totalterlambat}}</td>
-
-            </tr>
-        @endforeach
-    </table>
+    @endforeach
+</table>
 
     <table width="100%" style="margin-top: 100px">
         <tr>

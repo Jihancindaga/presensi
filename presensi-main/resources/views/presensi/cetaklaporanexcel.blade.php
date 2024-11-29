@@ -43,8 +43,44 @@
     .tabelpresensi tr td{
         border: 1px solid black;
         padding: 5px;
+        text-align: center;
         font-size: 12px;
     }
+    .summary-table {
+      margin-top: 30px; /* Jarak antara tabel presensi dengan tabel total */
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .summary-table th,
+    .summary-table td {
+      border: 1px solid black;
+      padding: 5px;
+      text-align: left;
+      font-size: 12px;
+    }
+
+    .signature-table {
+      margin-top: 50px; /* Jarak antara tabel total dengan tanda tangan */
+      width: 100%;
+    }
+
+    .signature-table td {
+      text-align: center;
+      vertical-align: bottom;
+      padding-top: 50px;
+    }
+    .signature-name {
+      margin-bottom: 10px; /* Jarak antara nama dan jabatan */
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    .signature-role {
+      margin-top: 5px;
+      font-style: italic;
+    }
+    
     .foto{
         width: 50px; /* Atur lebar sesuai keinginan, misalnya 100px */
         height: 40px;
@@ -125,24 +161,43 @@
         </tr>
     </table>
     <table class="tabelpresensi">
-        <tr>
-            <th>No.</th>
-            <th>Tanggal</th>
-            <th>Jam Masuk</th>
-            <th>Jam Pulang</th>
-            <th>Keterangan</th>
-        </tr>
-        <tr>
-            @foreach ($presensi as $d)
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Tanggal</th>
+                <th>Jam Masuk</th>
+                <th>Jam Pulang</th>
+                <th>Keterangan</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+        @php
+        $totalsakit = $totalalpha = $totalizin = $totalhadir = $totalterlambat = 0;
+        @endphp
+        @foreach ($presensi as $d)
                 @php
 
                     $jamterlambat = selisih('07:00:00', $d->jam_in);
                     // $path_in = asset('storage/uploads/absensi/' . $d->foto_in);
                     // $path_out = asset('storage/uploads/absensi/' . $d->foto_out);
 
+                    if ($d->keterangan == 'Sakit') $totalsakit++;
+                    elseif ($d->keterangan == 'Alpha') $totalalpha++;
+                    elseif ($d->keterangan == 'Izin') $totalizin++;
+                    elseif (!empty($d->jam_in)) {
+                    $totalhadir++;
+                    if ($d->jam_in > '07:00:00') $totalterlambat++;
+                    }
+
                 @endphp
                 <tr>
-                    <td>{{ $loop->iteration}}</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ date('d-m-Y', strtotime($d->tgl_presensi)) }}</td>
+                    <td>{{ $d->jam_in }}</td>
+                    <td>{{ $d->jam_out ?? 'Belum Presensi' }}</td>
+                    <td>{{ $d->keterangan }}</td>
+                    <!-- <td>{{ $loop->iteration}}</td>
                     <td>{{ date("d-m-Y", strtotime($d->tgl_presensi))}}</td>
                     <td>{{ $d->jam_in }}</td>
                     {{-- <td>{{ $d->foto_in}}</td> --}}
@@ -154,22 +209,54 @@
                         @else
                         Tepat Waktu
                         @endif
-                    </td>
+                    </td> -->
                 </tr>
             @endforeach
-        </tr>
+        </tbody>    
     </table>
 
-    <table width="100%" style="margin-top: 100px">
+    <!-- Jarak Tambahan Antar Tabel -->
+    <tr><td colspan="5">&nbsp;</td></tr>
+    <tr><td colspan="5">&nbsp;</td></tr>
+
+     <!-- Summary -->
+     <table class="summary-table">
+      <tr>
+        <th>Jumlah Sakit</th>
+        <td>{{ $totalsakit }}</td>
+      </tr>
+      <tr>
+        <th>Jumlah Alpha</th>
+        <td>{{ $totalalpha }}</td>
+      </tr>
+      <tr>
+        <th>Jumlah Izin</th>
+        <td>{{ $totalizin }}</td>
+      </tr>
+      <tr>
+        <th>Total Hadir</th>
+        <td>{{ $totalhadir }}</td>
+      </tr>
+      <tr>
+        <th>Total Terlambat</th>
+        <td>{{ $totalterlambat }}</td>
+      </tr>
+    </table>
+
+    <!-- Jarak Tambahan Sebelum Tanda Tangan -->
+    <!-- <tr><td colspan="5">&nbsp;</td></tr>
+    <tr><td colspan="5">&nbsp;</td></tr> -->
+
+    <table  width="100%" style="margin-top: 100px; border-collapse: collapse;">
         <tr>
             <td colspan="2" style="text-align: right">Bantul, {{ date('d-m-Y')}}</td>
         </tr>
         <tr>
-            <td style="text-align: center; vertical-align:bottom" height="100px">
+            <td style="text-align: center; vertical-align:bottom; padding-top:50px" height="100px">
                 <u>Shinta Putri Ramadhani</u><br>
                 <i><b>Guru Wali Kelas</b></i>
             </td>
-            <td style="text-align: center; vertical-align:bottom" >
+            <td style="text-align: center; vertical-align:bottom; padding-top: 50px;" >
                 <u>Firma Zulfia</u><br>
                 <i><b>Guru BK</b></i>
             </td>

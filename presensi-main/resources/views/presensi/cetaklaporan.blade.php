@@ -55,7 +55,7 @@
 <!-- Set "A5", "A4" or "A3" for class name -->
 <!-- Set also "landscape" if you need -->
 <body class="A4">
-    <?php
+    @php
     function selisih($jam_masuk, $jam_keluar)
         {
             list($h, $m, $s) = explode(":", $jam_masuk);
@@ -70,7 +70,13 @@
             $jml_jam = $jam[0];
             return $jml_jam . ":" . round($sisamenit2);
         };
-    ?>
+
+        $totalsakit = 0;
+        $totalalpha = 0;
+        $totalizin = 0;
+        $totalhadir = 0;
+        $totalterlambat = 0;
+    @endphp
 
   <!-- Each sheet element should have the class "sheet" -->
   <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
@@ -125,6 +131,7 @@
         </tr>
     </table>
     <table class="tabelpresensi">
+        <thead>
         <tr>
             <th>No.</th>
             <th>Tanggal</th>
@@ -134,8 +141,10 @@
             <th>Foto Out</th>
             <th>Keterangan</th>
         </tr>
-        <tr>
-            @foreach ($presensi as $d)
+        </thead>
+       
+        <tbody>
+        @foreach ($presensi as $d)
                 @php
                     $path_in = Storage::url('uploads/absensi/'.$d->foto_in);
                     $path_out = Storage::url('uploads/absensi/'.$d->foto_out);
@@ -143,6 +152,13 @@
                     // $path_in = asset('storage/uploads/absensi/' . $d->foto_in);
                     // $path_out = asset('storage/uploads/absensi/' . $d->foto_out);
 
+                    if ($d->keterangan == 'Sakit') $totalsakit++;
+                    elseif ($d->keterangan == 'Alpha') $totalalpha++;
+                    elseif ($d->keterangan == 'Izin') $totalizin++;
+                    elseif (!empty($d->jam_in)) {
+                    $totalhadir++;
+                    if ($d->jam_in > '07:00:00') $totalterlambat++;
+                    }
                 @endphp
                 <tr>
                     <td>{{ $loop->iteration}}</td>
@@ -158,17 +174,50 @@
                             No Photo
                         @endif
                     </td>
-                    <td>
-                        @if ($d->jam_in > '07:00')
+                    <td> {{ $d->keterangan }} 
+                        <!-- @if ($d->jam_in > '07:00')
                         Terlambat {{ $jamterlambat}}
                         @else
                         Tepat Waktu
-                        @endif
+                        @endif -->
                     </td>
                 </tr>
             @endforeach
-        </tr>
+        </tbody>
     </table>
+
+    <table class="totals" style="margin-top: 20px; width: 50%; border-collapse: collapse;">
+  <tr>
+    <td style="border: 1px solid black; padding: 5px;"><strong>Jumlah Sakit:</strong></td>
+    <td style="border: 1px solid black; padding: 5px;">{{ $totalsakit }}</td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid black; padding: 5px;"><strong>Jumlah Alpha:</strong></td>
+    <td style="border: 1px solid black; padding: 5px;">{{ $totalalpha }}</td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid black; padding: 5px;"><strong>Jumlah Izin:</strong></td>
+    <td style="border: 1px solid black; padding: 5px;">{{ $totalizin }}</td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid black; padding: 5px;"><strong>Total Hadir:</strong></td>
+    <td style="border: 1px solid black; padding: 5px;">{{ $totalhadir }}</td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid black; padding: 5px;"><strong>Total Terlambat:</strong></td>
+    <td style="border: 1px solid black; padding: 5px;">{{ $totalterlambat }}</td>
+  </tr>
+</table>
+
+    <!-- <table class="totals">
+      <tr>
+        <td><strong>Jumlah Sakit:</strong> {{ $totalsakit }}</td>
+        <td><strong>Jumlah Alpha:</strong> {{ $totalalpha }}</td>
+        <td><strong>Jumlah Izin:</strong> {{ $totalizin }}</td>
+        <td><strong>Total Hadir:</strong> {{ $totalhadir }}</td>
+        <td><strong>Total Terlambat:</strong> {{ $totalterlambat }}</td>
+      </tr>
+    </table> -->
 
     <table width="100%" style="margin-top: 100px">
         <tr>
